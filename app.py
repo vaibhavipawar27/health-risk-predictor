@@ -1,6 +1,20 @@
 import streamlit as st
 import pickle
 import numpy as np
+import pickle
+import os
+
+# Safer model loading
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'diabetes_model.pkl')
+
+try:
+    with open(MODEL_PATH, 'rb') as f:
+        model = pickle.load(f)
+except Exception as e:
+    st.error("❌ Could not load the model.")
+    st.text(f"Error: {e}")
+    st.stop()
+
 
 # Load trained model
 with open('diabetes_model.pkl', 'rb') as f:
